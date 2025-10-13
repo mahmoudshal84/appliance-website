@@ -1872,11 +1872,11 @@ const Navigation = () => (
   {/* Center - Home button and Category navigation */}
   <div className="flex items-center space-x-1 flex-shrink-0">
     {/* Home button and categories stay the same */}
-    <button 
-      onClick={() => {setCurrentPage('home'); setSelectedCategory(null); setSelectedProduct(null);}}
+    <button
+      onClick={() => {setCurrentPage('home'); setSelectedCategory(null); setSelectedProduct(null); window.scrollTo(0, 0);}}
       className={`px-2 py-2 text-sm font-medium transition-colors whitespace-nowrap ${
-        currentPage === 'home' 
-          ? 'text-blue-600 border-b-2 border-blue-600' 
+        currentPage === 'home'
+          ? 'text-blue-600 border-b-2 border-blue-600'
           : 'text-gray-500 hover:text-gray-700'
       }`}
     >
@@ -1885,13 +1885,14 @@ const Navigation = () => (
     
     {navigationItems.map((item) => (
       <div key={item.name} className="relative group">
-        <button 
+        <button
           className="px-1 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors whitespace-nowrap"
           onClick={() => {
             setSelectedCategory(item.key);
             setCurrentPage('category');
             updatePageSEO('category', item.key);
             setSelectedFilters({ brands: [], priceRange: '', type: '', minPrice: 0, maxPrice: 5000 });
+            window.scrollTo(0, 0);
           }}
         >
           {item.name}
@@ -1907,6 +1908,7 @@ const Navigation = () => (
                     setCurrentPage('category');
                     updatePageSEO('category', item.key);
                     setSelectedFilters({ brands: [], priceRange: '', type: sub.key, minPrice: 0, maxPrice: 5000 });
+                    window.scrollTo(0, 0);
                   }}
                   className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
@@ -1976,7 +1978,7 @@ const Navigation = () => (
             </button>
             {navigationItems.map((item) => (
               <div key={item.name}>
-                <button 
+                <button
                   className="block w-full text-left px-3 py-2 text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-colors rounded-md"
                   onClick={() => {
                     setSelectedCategory(item.key);
@@ -1984,6 +1986,7 @@ const Navigation = () => (
                     updatePageSEO('category', item.key);
                     setMobileMenuOpen(false);
                     setSelectedFilters({ brands: [], priceRange: '', type: '', minPrice: 0, maxPrice: 5000 });
+                    window.scrollTo(0, 0);
                   }}
                 >
                   {item.name}
@@ -1999,6 +2002,7 @@ const Navigation = () => (
                           updatePageSEO('category', item.key);
                           setMobileMenuOpen(false);
                           setSelectedFilters({ brands: [], priceRange: '', type: sub.key, minPrice: 0, maxPrice: 5000 });
+                          window.scrollTo(0, 0);
                         }}
                         className="block w-full text-left px-3 py-2 text-sm text-gray-600 hover:text-gray-800 hover:bg-gray-50 rounded-md"
                       >
@@ -2795,6 +2799,7 @@ const Navigation = () => (
   } else {
     setSelectedFilters({ brands: [], priceRange: '', type: '', minPrice: 0, maxPrice: 5000 });
   }
+  window.scrollTo(0, 0);
 }}
               className="group bg-white border-2 border-gray-200 rounded-xl p-4 sm:p-6 text-center hover:border-blue-500 hover:shadow-lg transition-all duration-300 transform hover:scale-105"
             >
