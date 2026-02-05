@@ -228,7 +228,9 @@ const brands = [
   { name: "Maytag", logo: 'images/logos/maytaglogo.png' },
   { name: "Hotpoint", logo: 'images/logos/hotpointlogo.png' },
   { name: "Amana", logo: 'images/logos/amanalogo.svg' },
-  { name: "Midea", logo: 'images/logos/midealogo.jpg' }
+  { name: "Midea", logo: 'images/logos/midealogo.jpg' },
+  { name: "Cafe", logo: 'images/logos/cafelogo1.jpg' },
+  { name: "Bosch", logo: 'images/logos/boschlogo1.png' }
 ];
 
 // Appliance categories for square tabs
@@ -1141,8 +1143,8 @@ const updatePageSEO = useCallback((page, category = null) => {
       }
       break;
     case 'financing':
-      title = "Appliance Financing Options - Snap & Acima | Appliance House Nicholasville KY";
-      description = "Flexible appliance financing with Snap Finance and Acima. No credit needed options available. Get the appliances you need today in Nicholasville, KY.";
+      title = "Appliance Financing Options - Snap, Acima & Koalafi | Appliance House Nicholasville KY";
+      description = "Flexible appliance financing with Snap Finance, Acima, and Koalafi. No credit needed options available. Koalafi accepts Chime! Get the appliances you need today in Nicholasville, KY.";
       break;
     case 'contact':
       title = "Contact Appliance House - Visit Our Nicholasville KY Showroom";
@@ -2179,7 +2181,7 @@ const Navigation = () => (
                   <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
                     {product.brand} {product.modelNumber}
                   </h1>
-                  <p className="text-base sm:text-lg text-gray-600 mb-4">{product.description}</p>
+                  <p className="text-base sm:text-lg text-gray-600 mb-4" dangerouslySetInnerHTML={{ __html: product.description }}></p>
                   
                   <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 mb-6 space-y-2 sm:space-y-0">
                     <span className="text-2xl sm:text-3xl font-bold text-green-600">
@@ -2339,7 +2341,7 @@ const Navigation = () => (
 
   const getFilterOptions = (category) => {
     const baseFilters = {
-      brands: ['GE', 'Samsung', 'Whirlpool', 'LG', 'KitchenAid', 'Frigidaire', 'Maytag'],
+      brands: ['GE', 'Samsung', 'Whirlpool', 'LG', 'KitchenAid', 'Frigidaire', 'Maytag', 'Cafe', 'Bosch'],
       priceRanges: ['Under $500', '$500 - $1000', '$1000 - $2000', '$2000 - $3000', 'Over $3000']
     };
 
@@ -3517,7 +3519,7 @@ const Navigation = () => (
                 </p>
               </div>
               
-              <div className="grid lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
                 {/* Snap Financing */}
                 <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 text-center">
                   <div className="bg-gradient-to-r from-blue-600 to-indigo-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -3533,7 +3535,7 @@ const Navigation = () => (
                     <li>• Quick approval process</li>
                     <li>• Multiple payment terms available</li>
                   </ul>
-                  <button 
+                  <button
                     onClick={() => window.open('https://snapfinance.com/find-stores?zipCode=40507&state=KY&city=Richmond&industry=APPLIANCES&merchantId=490315615&dbaName=Appliance-House---Nicholasville', '_blank')}
                     className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors w-full"
                   >
@@ -3556,11 +3558,34 @@ const Navigation = () => (
                     <li>• Own it in 12 months or less</li>
                     <li>• Early purchase options available</li>
                   </ul>
-                  <button 
+                  <button
                     onClick={() => window.open('https://locations.acima.com/kentucky/nicholasville/5000-park-central-ave/', '_blank')}
                     className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors w-full"
                   >
                     Apply with Acima
+                  </button>
+                </div>
+
+                {/* Koalafi Financing */}
+                <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 text-center">
+                  <div className="bg-gradient-to-r from-purple-600 to-pink-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span className="text-white font-bold text-xl">K</span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Koalafi Financing</h3>
+                  <p className="text-gray-600 mb-6 leading-relaxed">
+                    Flexible financing with Chime acceptance. Get the appliances you need with payment options that work for you.
+                  </p>
+                  <ul className="text-left text-gray-600 mb-8 space-y-2">
+                    <li>• Accepts Chime!</li>
+                    <li>• Flexible financing options</li>
+                    <li>• Quick and easy application</li>
+                    <li>• Multiple payment plans available</li>
+                  </ul>
+                  <button
+                    onClick={() => window.open('https://epply.koalafi.com/?dealerId=e1186084-ab6d-4ef0-889d-03237043e276&cm=Store&dealerPublicId=e1186084-ab6d-4ef0-889d-03237043e276&orderId=fdcdf214-82f2-4ce1-86e4-50197d298149', '_blank')}
+                    className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors w-full"
+                  >
+                    Apply with Koalafi
                   </button>
                 </div>
               </div>
