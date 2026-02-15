@@ -1261,7 +1261,7 @@ const InventoryFilters = memo(({ filters, onFilterChange }) => {
                           <td className="px-6 py-4">
                             <div>
                               <div className="text-sm font-medium text-gray-900">{item.modelNumber}</div>
-                              <div className="text-sm text-gray-500 truncate max-w-xs">{item.description}</div>
+                              <div className="text-sm text-gray-500 truncate max-w-xs" dangerouslySetInnerHTML={{ __html: item.description }}></div>
                             </div>
                           </td>
                           <td className="px-6 py-4">
@@ -3202,7 +3202,7 @@ const Navigation = () => (
 </div>
                           <div className="p-4">
                             <h3 className="font-semibold text-gray-900 mb-1">{item.brand} {item.modelNumber}</h3>
-                            <p className="text-gray-600 text-sm mb-3 line-clamp-2">{item.description}</p>
+                            <p className="text-gray-600 text-sm mb-3 line-clamp-2" dangerouslySetInnerHTML={{ __html: item.description }}></p>
                             <div className="flex justify-between items-center mb-3">
                               <div>
                                 <div className="text-sm text-gray-500 line-through">MSRP: ${item.msrp.toLocaleString()}</div>
