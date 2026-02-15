@@ -1277,12 +1277,12 @@ const updatePageSEO = useCallback((page, category = null) => {
   }, [inventoryItems, inventoryFilters]);
 
   // Handle inventory filter changes
-  const handleInventoryFilterChange = (key, value) => {
+  const handleInventoryFilterChange = useCallback((key, value) => {
     setInventoryFilters(prev => ({
       ...prev,
       [key]: value
     }));
-  };
+  }, []);
 
   const compressAndFixOrientation = (file, maxWidth = 1200, quality = 0.8) => {
     return new Promise((resolve) => {
