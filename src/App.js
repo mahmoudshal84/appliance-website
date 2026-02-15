@@ -2236,7 +2236,7 @@ const Navigation = () => (
   );
 
   // Admin Dashboard
-  const AdminDashboard = () => (
+  const AdminDashboard = memo(() => (
     <ErrorBoundary>
       <div className="min-h-screen bg-gray-50">
         <nav className="bg-white shadow-sm">
@@ -2548,7 +2548,7 @@ const Navigation = () => (
       document.body
     )}
     </ErrorBoundary>
-  );
+  ));
 
   // Handle admin page routing
   if (currentPage === 'admin') {
