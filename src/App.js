@@ -1,145 +1,10 @@
-import React, { useState, useEffect, useCallback, useRef, memo } from 'react';
+import React, { useState, useEffect, useCallback, memo } from 'react';
 import { createPortal } from 'react-dom';
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut as firebaseSignOut } from 'firebase/auth';
 import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, getDoc } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
-import { ChevronRight, Shield, Truck, Phone, Mail, MapPin, Menu, X, Star, Users, Award, Clock, AlertCircle, CheckCircle } from 'lucide-react';
-
-// SEO and Schema Component
-const SEOSchema = () => {
-  React.useEffect(() => {
-    // Local Business Schema
-    const localBusinessSchema = {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Appliance House",
-      "description": "Premium scratch & dent appliances at unbeatable prices in Nicholasville, KY. Save up to 60% on refrigerators, washers, dryers, dishwashers with full warranties.",
-      "url": "https://appliancehouse.com",
-      "telephone": "+1-859-402-6888",
-      "email": "appliancehouseky@gmail.com",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "5000 Park Central Ave, Suite F",
-        "addressLocality": "Nicholasville",
-        "addressRegion": "KY",
-        "postalCode": "40356",
-        "addressCountry": "US"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": "37.8806",
-        "longitude": "-84.5732"
-      },
-      "openingHours": [
-        "Mo-Fr 10:00-17:00",
-        "Sa 12:00-17:00", 
-        "Su 12:00-17:00"
-      ],
-      "priceRange": "$",
-      "image": "https://yourwebsite.com/images/logos/company-logo.jpg",
-      "logo": "https://yourwebsite.com/images/logos/company-logo.jpg",
-      "sameAs": [
-        "https://www.facebook.com/appliancehouseky",
-        "https://www.google.com/maps/place/5000+Park+Central+Ave,+Nicholasville,+KY+40356"
-      ],
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Appliance Categories",
-        "itemListElement": [
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Product",
-              "name": "Refrigerators",
-              "category": "Appliances"
-            }
-          },
-          {
-            "@type": "Offer", 
-            "itemOffered": {
-              "@type": "Product",
-              "name": "Washers & Dryers",
-              "category": "Appliances"
-            }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Product", 
-              "name": "Dishwashers",
-              "category": "Appliances"
-            }
-          }
-        ]
-      },
-      "areaServed": [
-        {
-          "@type": "City",
-          "name": "Nicholasville",
-          "containedIn": {
-            "@type": "State",
-            "name": "Kentucky"
-          }
-        },
-        {
-          "@type": "City", 
-          "name": "Lexington",
-          "containedIn": {
-            "@type": "State",
-            "name": "Kentucky" 
-          }
-        },
-        {
-          "@type": "City",
-          "name": "Richmond", 
-          "containedIn": {
-            "@type": "State",
-            "name": "Kentucky"
-          }
-        },
-        {
-          "@type": "City",
-          "name": "Versailles",
-          "containedIn": {
-            "@type": "State", 
-            "name": "Kentucky"
-          }
-        }
-      ]
-    };
-
-    // Insert schema into the page
-    const schemaScript = document.getElementById('local-business-schema');
-    if (schemaScript) {
-      schemaScript.textContent = JSON.stringify(localBusinessSchema);
-    }
-
-    // Update page title based on current page
-    const updatePageTitle = () => {
-      const baseTitle = "Appliance House | Discount Appliances Nicholasville & Lexington KY";
-      
-      if (window.location.pathname.includes('/admin')) {
-        document.title = "Admin Dashboard - " + baseTitle;
-      } else if (window.location.pathname.includes('/financing')) {
-        document.title = "Financing Options - " + baseTitle;
-      } else if (window.location.pathname.includes('/contact')) {
-        document.title = "Contact Us - " + baseTitle;
-      } else {
-        document.title = baseTitle + " | Save up to 60%";
-      }
-    };
-
-    updatePageTitle();
-    window.addEventListener('popstate', updatePageTitle);
-
-    return () => {
-      window.removeEventListener('popstate', updatePageTitle);
-    };
-  }, []);
-
-  return null;
-};
+import { ChevronRight, Shield, Truck, Phone, Mail, MapPin, Menu, X, Star, Users, Award, Clock, AlertCircle } from 'lucide-react';
 
 // Firebase configuration from environment variables
 const firebaseConfig = {
@@ -543,7 +408,7 @@ const ItemFormModal = React.memo(({
       resetForm();
     }
     setFormErrors({});
-  }, [editingItem, showModal]);
+  }, [editingItem, showModal, resetForm]);
 
   // Form change handlers - these won't trigger parent re-renders
   const handleFormChange = useCallback((field, value) => {
@@ -946,7 +811,7 @@ const ItemFormModal = React.memo(({
         <div key={index} className="relative group">
           <img
             src={image}
-            alt={`Product image ${index + 1}`}
+            alt={`Product ${index + 1}`}
             className="w-full h-32 object-cover rounded-lg border"
           />
           <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all rounded-lg flex items-center justify-center">
@@ -1272,57 +1137,57 @@ const updatePageSEO = useCallback((page, category = null) => {
     }
   };
 
-  // Mock inventory data (replace with Firebase data)
-  const mockInventoryItems = [
-    {
-      id: '1',
-      modelNumber: 'RF28T5001SR',
-      brand: 'Samsung',
-      description: '28 cu. ft. Large Capacity 3-Door French Door Refrigerator',
-      msrp: 1899,
-      actualPrice: 1299,
-      category: 'refrigerators',
-      subcategory: 'french-door',
-      status: 'floor-display',
-      images: [],
-      videos: [],
-      primaryImageIndex: 0,
-      dateAdded: new Date('2024-01-15')
-    },
-    {
-      id: '2',
-      modelNumber: 'WF45T6000AW',
-      brand: 'Samsung',
-      description: '4.5 cu. ft. Front Load Washer with Steam',
-      msrp: 899,
-      actualPrice: 649,
-      category: 'washers',
-      subcategory: 'front-load',
-      status: 'storage-archive',
-      images: [],
-      videos: [],
-      primaryImageIndex: 0,
-      dateAdded: new Date('2024-02-01')
-    },
-    {
-      id: '3',
-      modelNumber: 'FFSS2615TS',
-      brand: 'Frigidaire',
-      description: '25.5 Cu. Ft. Side-by-Side Refrigerator',
-      msrp: 1299,
-      actualPrice: 899,
-      category: 'refrigerators',
-      subcategory: 'side-by-side',
-      status: 'sold',
-      images: [],
-      videos: [],
-      primaryImageIndex: 0,
-      dateAdded: new Date('2024-01-20')
-    }
-  ];
-
   // Initialize inventory data from Firebase
   useEffect(() => {
+    // Mock inventory data (replace with Firebase data)
+    const mockInventoryItems = [
+      {
+        id: '1',
+        modelNumber: 'RF28T5001SR',
+        brand: 'Samsung',
+        description: '28 cu. ft. Large Capacity 3-Door French Door Refrigerator',
+        msrp: 1899,
+        actualPrice: 1299,
+        category: 'refrigerators',
+        subcategory: 'french-door',
+        status: 'floor-display',
+        images: [],
+        videos: [],
+        primaryImageIndex: 0,
+        dateAdded: new Date('2024-01-15')
+      },
+      {
+        id: '2',
+        modelNumber: 'WF45T6000AW',
+        brand: 'Samsung',
+        description: '4.5 cu. ft. Front Load Washer with Steam',
+        msrp: 899,
+        actualPrice: 649,
+        category: 'washers',
+        subcategory: 'front-load',
+        status: 'storage-archive',
+        images: [],
+        videos: [],
+        primaryImageIndex: 0,
+        dateAdded: new Date('2024-02-01')
+      },
+      {
+        id: '3',
+        modelNumber: 'FFSS2615TS',
+        brand: 'Frigidaire',
+        description: '25.5 Cu. Ft. Side-by-Side Refrigerator',
+        msrp: 1299,
+        actualPrice: 899,
+        category: 'refrigerators',
+        subcategory: 'side-by-side',
+        status: 'sold',
+        images: [],
+        videos: [],
+        primaryImageIndex: 0,
+        dateAdded: new Date('2024-01-20')
+      }
+    ];
+
     const fetchInventoryFromFirebase = async () => {
       try {
         setIsLoading(true);
@@ -1661,33 +1526,6 @@ const updatePageSEO = useCallback((page, category = null) => {
   
   console.log('\n🏁 Media deletion summary:', summary);
   return summary;
-};
-
-const checkUserPermissions = async () => {
-  const currentUser = auth.currentUser;
-  if (!currentUser) {
-    console.error('No authenticated user found');
-    return false;
-  }
-  
-  console.log('Current user:', {
-    email: currentUser.email,
-    emailVerified: currentUser.emailVerified,
-    uid: currentUser.uid
-  });
-  
-  try {
-    // Test if user can write to storage
-    const testRef = ref(storage, `test/${Date.now()}.txt`);
-    const testBlob = new Blob(['test'], { type: 'text/plain' });
-    await uploadBytes(testRef, testBlob);
-    await deleteObject(testRef);
-    console.log('✅ User has storage permissions');
-    return true;
-  } catch (error) {
-    console.error('❌ User lacks storage permissions:', error);
-    return false;
-  }
 };
 
   const handleDeleteItem = async (item) => {
