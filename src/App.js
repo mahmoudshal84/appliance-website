@@ -394,7 +394,7 @@ const ItemFormModal = React.memo(({
       setItemForm({
         modelNumber: editingItem.modelNumber || '',
         brand: editingItem.brand || '',
-        description: editingItem.description || '',
+        description: (editingItem.description || '').replace(/<br>/g, '\n'),
         msrp: editingItem.msrp?.toString() || '',
         actualPrice: editingItem.actualPrice?.toString() || '',
         category: editingItem.category || '',
@@ -1261,7 +1261,7 @@ const InventoryFilters = memo(({ filters, onFilterChange }) => {
                           <td className="px-6 py-4">
                             <div>
                               <div className="text-sm font-medium text-gray-900">{item.modelNumber}</div>
-                              <div className="text-sm text-gray-500 truncate max-w-xs" dangerouslySetInnerHTML={{ __html: item.description }}></div>
+                              <div className="text-sm text-gray-500 truncate max-w-xs">{item.description}</div>
                             </div>
                           </td>
                           <td className="px-6 py-4">
@@ -1969,7 +1969,7 @@ console.log('🔐 Current authenticated user:', {
     const itemData = {
       modelNumber: formData.modelNumber,
       brand: formData.brand,
-      description: formData.description,
+      description: formData.description.replace(/\n/g, '<br>'),
       msrp: parseFloat(formData.msrp),
       actualPrice: parseFloat(formData.actualPrice),
       category: formData.category,
