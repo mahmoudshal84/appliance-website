@@ -2235,6 +2235,94 @@ const Navigation = () => (
     </ErrorBoundary>
   );
 
+  // Inventory Filters Component (memoized to prevent re-renders)
+  const InventoryFilters = memo(({ filters, onFilterChange }) => (
+    <div className="p-6 border-b border-gray-200">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
+        {/* Search */}
+        <div className="lg:col-span-2">
+          <input
+            type="text"
+            placeholder="Search items..."
+            value={filters.search}
+            onChange={(e) => onFilterChange('search', e.target.value)}
+            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+
+        {/* Brand Filter */}
+        <div>
+          <select
+            value={filters.brand}
+            onChange={(e) => onFilterChange('brand', e.target.value)}
+            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          >
+            <option value="">All Brands</option>
+            <option value="Samsung">Samsung</option>
+            <option value="GE">GE</option>
+            <option value="Whirlpool">Whirlpool</option>
+            <option value="LG">LG</option>
+            <option value="KitchenAid">KitchenAid</option>
+            <option value="Frigidaire">Frigidaire</option>
+            <option value="Maytag">Maytag</option>
+            <option value="Hotpoint">Hotpoint</option>
+            <option value="Amana">Amana</option>
+            <option value="Midea">Midea</option>
+            <option value="Cafe">Cafe</option>
+            <option value="Bosch">Bosch</option>
+          </select>
+        </div>
+
+        {/* Category Filter */}
+        <div>
+          <select
+            value={filters.category}
+            onChange={(e) => onFilterChange('category', e.target.value)}
+            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          >
+            <option value="">All Categories</option>
+            <option value="refrigerators">Refrigerators</option>
+            <option value="washers">Washers</option>
+            <option value="dryers">Dryers</option>
+            <option value="dishwashers">Dishwashers</option>
+            <option value="freezers">Freezers</option>
+            <option value="stoves">Stoves</option>
+          </select>
+        </div>
+
+        {/* Status Filter */}
+        <div>
+          <select
+            value={filters.status}
+            onChange={(e) => onFilterChange('status', e.target.value)}
+            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          >
+            <option value="">All Status</option>
+            <option value="floor-display">Floor/Display</option>
+            <option value="storage-archive">Storage/Archive</option>
+            <option value="sold">Sold</option>
+          </select>
+        </div>
+
+        {/* Sort */}
+        <div>
+          <select
+            value={filters.sortBy}
+            onChange={(e) => onFilterChange('sortBy', e.target.value)}
+            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          >
+            <option value="dateAdded-desc">Newest First</option>
+            <option value="dateAdded-asc">Oldest First</option>
+            <option value="brand-asc">Brand A-Z</option>
+            <option value="brand-desc">Brand Z-A</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  ));
+
   // Admin Dashboard
   const AdminDashboard = memo(() => (
     <ErrorBoundary>
@@ -2355,89 +2443,7 @@ const Navigation = () => (
                 </div>
 
                 {/* Search and Filters */}
-                <div className="p-6 border-b border-gray-200">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
-                    {/* Search */}
-                    <div className="lg:col-span-2">
-                      <input
-                        type="text"
-                        placeholder="Search items..."
-                        value={inventoryFilters.search}
-                        onChange={(e) => handleInventoryFilterChange('search', e.target.value)}
-                        className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      />
-                    </div>
-
-                    {/* Brand Filter */}
-                    <div>
-                      <select
-                        value={inventoryFilters.brand}
-                        onChange={(e) => handleInventoryFilterChange('brand', e.target.value)}
-                        className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      >
-                        <option value="">All Brands</option>
-                        <option value="Samsung">Samsung</option>
-                        <option value="GE">GE</option>
-                        <option value="Whirlpool">Whirlpool</option>
-                        <option value="LG">LG</option>
-                        <option value="KitchenAid">KitchenAid</option>
-                        <option value="Frigidaire">Frigidaire</option>
-                        <option value="Maytag">Maytag</option>
-                        <option value="Hotpoint">Hotpoint</option>
-                        <option value="Amana">Amana</option>
-                        <option value="Midea">Midea</option>
-                        <option value="Cafe">Cafe</option>
-                        <option value="Bosch">Bosch</option>
-                      </select>
-                    </div>
-
-                    {/* Category Filter */}
-                    <div>
-                      <select
-                        value={inventoryFilters.category}
-                        onChange={(e) => handleInventoryFilterChange('category', e.target.value)}
-                        className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      >
-                        <option value="">All Categories</option>
-                        <option value="refrigerators">Refrigerators</option>
-                        <option value="washers">Washers</option>
-                        <option value="dryers">Dryers</option>
-                        <option value="dishwashers">Dishwashers</option>
-                        <option value="freezers">Freezers</option>
-                      </select>
-                    </div>
-
-                    {/* Status Filter */}
-                    <div>
-                      <select
-                        value={inventoryFilters.status}
-                        onChange={(e) => handleInventoryFilterChange('status', e.target.value)}
-                        className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      >
-                        <option value="">All Status</option>
-                        <option value="floor-display">Floor/Display</option>
-                        <option value="storage-archive">Storage/Archive</option>
-                        <option value="sold">Sold</option>
-                      </select>
-                    </div>
-
-                    {/* Sort */}
-                    <div>
-                      <select
-                        value={inventoryFilters.sortBy}
-                        onChange={(e) => handleInventoryFilterChange('sortBy', e.target.value)}
-                        className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      >
-                        <option value="dateAdded-desc">Newest First</option>
-                        <option value="dateAdded-asc">Oldest First</option>
-                        <option value="brand-asc">Brand A-Z</option>
-                        <option value="brand-desc">Brand Z-A</option>
-                        <option value="actualPrice-asc">Price Low-High</option>
-                        <option value="actualPrice-desc">Price High-Low</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
+                <InventoryFilters filters={inventoryFilters} onFilterChange={handleInventoryFilterChange} />
 
                 {/* Items Table */}
                 <div className="overflow-x-auto -mx-4 sm:mx-0">
