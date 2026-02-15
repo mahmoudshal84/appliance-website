@@ -592,7 +592,9 @@ const ItemFormModal = React.memo(({
     { value: "Maytag", label: "Maytag" },
     { value: "Hotpoint", label: "Hotpoint" },
     { value: "Amana", label: "Amana" },
-    { value: "Midea", label: "Midea" }
+    { value: "Midea", label: "Midea" },
+    { value: "Cafe", label: "Cafe" },
+    { value: "Bosch", label: "Bosch" }
   ];
 
   const categoryOptions = [
@@ -2378,7 +2380,14 @@ const Navigation = () => (
                         <option value="GE">GE</option>
                         <option value="Whirlpool">Whirlpool</option>
                         <option value="LG">LG</option>
+                        <option value="KitchenAid">KitchenAid</option>
                         <option value="Frigidaire">Frigidaire</option>
+                        <option value="Maytag">Maytag</option>
+                        <option value="Hotpoint">Hotpoint</option>
+                        <option value="Amana">Amana</option>
+                        <option value="Midea">Midea</option>
+                        <option value="Cafe">Cafe</option>
+                        <option value="Bosch">Bosch</option>
                       </select>
                     </div>
 
