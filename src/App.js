@@ -1261,7 +1261,7 @@ const InventoryFilters = memo(({ filters, onFilterChange }) => {
                           <td className="px-6 py-4">
                             <div>
                               <div className="text-sm font-medium text-gray-900">{item.modelNumber}</div>
-                              <div className="text-sm text-gray-500 truncate max-w-xs">{item.description}</div>
+                              <div className="text-sm text-gray-500 truncate max-w-xs" dangerouslySetInnerHTML={{ __html: item.description }}></div>
                             </div>
                           </td>
                           <td className="px-6 py-4">
