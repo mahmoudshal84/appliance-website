@@ -1095,6 +1095,263 @@ const InventoryFilters = memo(({ filters, onFilterChange }) => {
   );
 });
 
+  // Admin Dashboard
+  const AdminDashboard = memo(({
+    user,
+    signOut,
+    isLoading,
+    inventoryItems,
+    filteredItems,
+    inventoryFilters,
+    handleInventoryFilterChange,
+    handleAddItem,
+    handleEditItem,
+    handleDeleteItem,
+    showAddItemModal,
+    setShowAddItemModal,
+    editingItem,
+    setEditingItem,
+    handleSubmitItem,
+    getSubcategoryOptions,
+    uploadImageToFirebase,
+    uploadVideoToFirebase,
+    confirmDialog,
+    setCurrentPage,
+    updatePageSEO,
+    setSelectedCategory,
+    setSelectedProduct
+  }) => (
+    <ErrorBoundary>
+      <div className="min-h-screen bg-gray-50">
+        <nav className="bg-white shadow-sm">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center h-16">
+              <div className="flex items-center">
+                <h1 className="text-xl font-bold text-gray-900">Admin Dashboard</h1>
+              </div>
+              <div className="flex items-center justify-center flex-1">
+                <button
+                  onClick={() => {
+                    setCurrentPage('home');
+                    updatePageSEO('home');
+                    setSelectedCategory(null);
+                    setSelectedProduct(null);
+                  }}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Back to Site
+                </button>
+              </div>
+              <div className="flex items-center space-x-4">
+                <span className="text-sm text-gray-600">Welcome, {user?.displayName}</span>
+                {user?.photoURL && (
+                  <img 
+                    src={user.photoURL} 
+                    alt="Profile" 
+                    className="h-8 w-8 rounded-full"
+                  />
+                )}
+                <button
+                  onClick={signOut}
+                  className="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-md text-sm transition-colors"
+                >
+                  Sign Out
+                </button>
+              </div>
+            </div>
+          </div>
+        </nav>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {isLoading ? (
+            <div className="flex justify-center items-center min-h-64">
+              <LoadingSpinner size="large" text="Loading dashboard..." />
+            </div>
+          ) : (
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                {/* Stats Cards */}
+                <div className="bg-white rounded-lg shadow p-6">
+                  <div className="flex items-center">
+                    <div className="bg-blue-500 rounded-lg p-3">
+                      <Users className="h-6 w-6 text-white" />
+                    </div>
+                    <div className="ml-4">
+                      <p className="text-sm font-medium text-gray-600">Total Items</p>
+                      <p className="text-2xl font-semibold text-gray-900">{inventoryItems.length}</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-white rounded-lg shadow p-6">
+                  <div className="flex items-center">
+                    <div className="bg-green-500 rounded-lg p-3">
+                      <Award className="h-6 w-6 text-white" />
+                    </div>
+                    <div className="ml-4">
+                      <p className="text-sm font-medium text-gray-600">Floor Display</p>
+                      <p className="text-2xl font-semibold text-gray-900">
+                        {inventoryItems.filter(item => item.status === 'floor-display').length}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-white rounded-lg shadow p-6">
+                  <div className="flex items-center">
+                    <div className="bg-yellow-500 rounded-lg p-3">
+                      <Clock className="h-6 w-6 text-white" />
+                    </div>
+                    <div className="ml-4">
+                      <p className="text-sm font-medium text-gray-600">In Storage</p>
+                      <p className="text-2xl font-semibold text-gray-900">
+                        {inventoryItems.filter(item => item.status === 'storage-archive').length}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-white rounded-lg shadow p-6">
+                  <div className="flex items-center">
+                    <div className="bg-red-500 rounded-lg p-3">
+                      <Star className="h-6 w-6 text-white" />
+                    </div>
+                    <div className="ml-4">
+                      <p className="text-sm font-medium text-gray-600">Sold</p>
+                      <p className="text-2xl font-semibold text-gray-900">
+                        {inventoryItems.filter(item => item.status === 'sold').length}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Inventory Management Section */}
+              <div className="bg-white rounded-lg shadow">
+                <div className="px-6 py-4 border-b border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
+                  <h2 className="text-lg font-semibold text-gray-900">Inventory Management</h2>
+                  <button
+                    onClick={handleAddItem}
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                  >
+                    Add New Item
+                  </button>
+                </div>
+
+                {/* Search and Filters */}
+                <InventoryFilters filters={inventoryFilters} onFilterChange={handleInventoryFilterChange} />
+
+                {/* Items Table */}
+                <div className="overflow-x-auto -mx-4 sm:mx-0">
+                  <table className="w-full min-w-full"  style={{minWidth: '800px'}}>
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Item</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Brand</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {filteredItems.map((item) => (
+                        <tr key={item.id} className="hover:bg-gray-50">
+                          <td className="px-6 py-4">
+                            <div>
+                              <div className="text-sm font-medium text-gray-900">{item.modelNumber}</div>
+                              <div className="text-sm text-gray-500 truncate max-w-xs">{item.description}</div>
+                            </div>
+                          </td>
+                          <td className="px-6 py-4">
+  <div className="flex-shrink-0 h-16 w-16">
+    {item.images && Array.isArray(item.images) && item.images.length > 0 ? (
+      <img
+        src={item.images[item.primaryImageIndex || 0]}
+        alt={`${item.brand} ${item.modelNumber}`}
+        className="h-16 w-16 rounded-lg object-cover"
+        onError={(e) => {
+          console.error('Admin table image failed to load:', item.images[item.primaryImageIndex || 0]);
+          e.target.src = '/images/placeholder-appliance.jpg';
+        }}
+        onLoad={() => {
+          console.log('Admin table image loaded:', item.images[item.primaryImageIndex || 0]);
+        }}
+      />
+    ) : (
+      <div className="h-16 w-16 rounded-lg bg-gray-200 flex items-center justify-center">
+        <span className="text-gray-400 text-xs">No Image</span>
+      </div>
+    )}
+  </div>
+</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.brand}</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 capitalize">
+                            {item.category.replace('-', ' ')}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="text-sm text-gray-900">${item.actualPrice}</div>
+                            <div className="text-sm text-gray-500 line-through">${item.msrp}</div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                              item.status === 'floor-display' ? 'bg-green-100 text-green-800' :
+                              item.status === 'storage-archive' ? 'bg-yellow-100 text-yellow-800' :
+                              'bg-red-100 text-red-800'
+                            }`}>
+                              {item.status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button
+                              onClick={() => handleEditItem(item)}
+                              className="text-blue-600 hover:text-blue-900 mr-3 px-3 py-2 touch-manipulation min-h-[44px] inline-flex items-center"
+                            >
+                              Edit
+                            </button>
+                            <button
+                              onClick={() => handleDeleteItem(item)}
+                              className="text-red-600 hover:text-red-900 px-3 py-2 touch-manipulation min-h-[44px] inline-flex items-center"
+                              data-delete-item={item.id}
+                            >
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  
+                  {filteredItems.length === 0 && (
+                    <div className="text-center py-8 text-gray-500">
+                      No items found matching your criteria.
+                    </div>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+
+        <ItemFormModal
+  showModal={showAddItemModal}
+  setShowModal={setShowAddItemModal}
+  editingItem={editingItem}
+  setEditingItem={setEditingItem}
+  handleSubmitItem={handleSubmitItem}
+  getSubcategoryOptions={getSubcategoryOptions}
+  uploadImageToFirebase={uploadImageToFirebase}
+  uploadVideoToFirebase={uploadVideoToFirebase}
+/>
+      </div>
+    {confirmDialog.isOpen && createPortal(
+      <ConfirmationDialog {...confirmDialog} />,
+      document.body
+    )}
+    </ErrorBoundary>
+  ));
+
 function App() {
 
   // SEO Helper Function
@@ -2339,245 +2596,37 @@ const Navigation = () => (
     </ErrorBoundary>
   );
 
-  // Admin Dashboard
-  const AdminDashboard = memo(() => (
-    <ErrorBoundary>
-      <div className="min-h-screen bg-gray-50">
-        <nav className="bg-white shadow-sm">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16">
-              <div className="flex items-center">
-                <h1 className="text-xl font-bold text-gray-900">Admin Dashboard</h1>
-              </div>
-              <div className="flex items-center justify-center flex-1">
-                <button
-                  onClick={() => {
-                    setCurrentPage('home');
-                    updatePageSEO('home');
-                    setSelectedCategory(null);
-                    setSelectedProduct(null);
-                  }}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
-                >
-                  Back to Site
-                </button>
-              </div>
-              <div className="flex items-center space-x-4">
-                <span className="text-sm text-gray-600">Welcome, {user?.displayName}</span>
-                {user?.photoURL && (
-                  <img 
-                    src={user.photoURL} 
-                    alt="Profile" 
-                    className="h-8 w-8 rounded-full"
-                  />
-                )}
-                <button
-                  onClick={signOut}
-                  className="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-md text-sm transition-colors"
-                >
-                  Sign Out
-                </button>
-              </div>
-            </div>
-          </div>
-        </nav>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {isLoading ? (
-            <div className="flex justify-center items-center min-h-64">
-              <LoadingSpinner size="large" text="Loading dashboard..." />
-            </div>
-          ) : (
-            <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                {/* Stats Cards */}
-                <div className="bg-white rounded-lg shadow p-6">
-                  <div className="flex items-center">
-                    <div className="bg-blue-500 rounded-lg p-3">
-                      <Users className="h-6 w-6 text-white" />
-                    </div>
-                    <div className="ml-4">
-                      <p className="text-sm font-medium text-gray-600">Total Items</p>
-                      <p className="text-2xl font-semibold text-gray-900">{inventoryItems.length}</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-white rounded-lg shadow p-6">
-                  <div className="flex items-center">
-                    <div className="bg-green-500 rounded-lg p-3">
-                      <Award className="h-6 w-6 text-white" />
-                    </div>
-                    <div className="ml-4">
-                      <p className="text-sm font-medium text-gray-600">Floor Display</p>
-                      <p className="text-2xl font-semibold text-gray-900">
-                        {inventoryItems.filter(item => item.status === 'floor-display').length}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-white rounded-lg shadow p-6">
-                  <div className="flex items-center">
-                    <div className="bg-yellow-500 rounded-lg p-3">
-                      <Clock className="h-6 w-6 text-white" />
-                    </div>
-                    <div className="ml-4">
-                      <p className="text-sm font-medium text-gray-600">In Storage</p>
-                      <p className="text-2xl font-semibold text-gray-900">
-                        {inventoryItems.filter(item => item.status === 'storage-archive').length}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-white rounded-lg shadow p-6">
-                  <div className="flex items-center">
-                    <div className="bg-red-500 rounded-lg p-3">
-                      <Star className="h-6 w-6 text-white" />
-                    </div>
-                    <div className="ml-4">
-                      <p className="text-sm font-medium text-gray-600">Sold</p>
-                      <p className="text-2xl font-semibold text-gray-900">
-                        {inventoryItems.filter(item => item.status === 'sold').length}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Inventory Management Section */}
-              <div className="bg-white rounded-lg shadow">
-                <div className="px-6 py-4 border-b border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
-                  <h2 className="text-lg font-semibold text-gray-900">Inventory Management</h2>
-                  <button
-                    onClick={handleAddItem}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
-                  >
-                    Add New Item
-                  </button>
-                </div>
-
-                {/* Search and Filters */}
-                <InventoryFilters filters={inventoryFilters} onFilterChange={handleInventoryFilterChange} />
-
-                {/* Items Table */}
-                <div className="overflow-x-auto -mx-4 sm:mx-0">
-                  <table className="w-full min-w-full"  style={{minWidth: '800px'}}>
-                    <thead className="bg-gray-50">
-                      <tr>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Item</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Brand</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
-                      {filteredItems.map((item) => (
-                        <tr key={item.id} className="hover:bg-gray-50">
-                          <td className="px-6 py-4">
-                            <div>
-                              <div className="text-sm font-medium text-gray-900">{item.modelNumber}</div>
-                              <div className="text-sm text-gray-500 truncate max-w-xs">{item.description}</div>
-                            </div>
-                          </td>
-                          <td className="px-6 py-4">
-  <div className="flex-shrink-0 h-16 w-16">
-    {item.images && Array.isArray(item.images) && item.images.length > 0 ? (
-      <img
-        src={item.images[item.primaryImageIndex || 0]}
-        alt={`${item.brand} ${item.modelNumber}`}
-        className="h-16 w-16 rounded-lg object-cover"
-        onError={(e) => {
-          console.error('Admin table image failed to load:', item.images[item.primaryImageIndex || 0]);
-          e.target.src = '/images/placeholder-appliance.jpg';
-        }}
-        onLoad={() => {
-          console.log('Admin table image loaded:', item.images[item.primaryImageIndex || 0]);
-        }}
-      />
-    ) : (
-      <div className="h-16 w-16 rounded-lg bg-gray-200 flex items-center justify-center">
-        <span className="text-gray-400 text-xs">No Image</span>
-      </div>
-    )}
-  </div>
-</td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.brand}</td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 capitalize">
-                            {item.category.replace('-', ' ')}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">${item.actualPrice}</div>
-                            <div className="text-sm text-gray-500 line-through">${item.msrp}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                              item.status === 'floor-display' ? 'bg-green-100 text-green-800' :
-                              item.status === 'storage-archive' ? 'bg-yellow-100 text-yellow-800' :
-                              'bg-red-100 text-red-800'
-                            }`}>
-                              {item.status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
-                            </span>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <button
-                              onClick={() => handleEditItem(item)}
-                              className="text-blue-600 hover:text-blue-900 mr-3 px-3 py-2 touch-manipulation min-h-[44px] inline-flex items-center"
-                            >
-                              Edit
-                            </button>
-                            <button
-                              onClick={() => handleDeleteItem(item)}
-                              className="text-red-600 hover:text-red-900 px-3 py-2 touch-manipulation min-h-[44px] inline-flex items-center"
-                              data-delete-item={item.id}
-                            >
-                              Delete
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                  
-                  {filteredItems.length === 0 && (
-                    <div className="text-center py-8 text-gray-500">
-                      No items found matching your criteria.
-                    </div>
-                  )}
-                </div>
-              </div>
-            </>
-          )}
-        </div>
-
-        <ItemFormModal
-  showModal={showAddItemModal}
-  setShowModal={setShowAddItemModal}
-  editingItem={editingItem}
-  setEditingItem={setEditingItem}
-  handleSubmitItem={handleSubmitItem}
-  getSubcategoryOptions={getSubcategoryOptions}
-  uploadImageToFirebase={uploadImageToFirebase}
-  uploadVideoToFirebase={uploadVideoToFirebase}
-/>
-      </div>
-    {confirmDialog.isOpen && createPortal(
-      <ConfirmationDialog {...confirmDialog} />,
-      document.body
-    )}
-    </ErrorBoundary>
-  ));
 
   // Handle admin page routing
   if (currentPage === 'admin') {
     if (!isAuthenticated) {
       return <AdminLoginPage />;
     }
-    return <AdminDashboard />;
+    return <AdminDashboard
+      user={user}
+      signOut={signOut}
+      isLoading={isLoading}
+      inventoryItems={inventoryItems}
+      filteredItems={filteredItems}
+      inventoryFilters={inventoryFilters}
+      handleInventoryFilterChange={handleInventoryFilterChange}
+      handleAddItem={handleAddItem}
+      handleEditItem={handleEditItem}
+      handleDeleteItem={handleDeleteItem}
+      showAddItemModal={showAddItemModal}
+      setShowAddItemModal={setShowAddItemModal}
+      editingItem={editingItem}
+      setEditingItem={setEditingItem}
+      handleSubmitItem={handleSubmitItem}
+      getSubcategoryOptions={getSubcategoryOptions}
+      uploadImageToFirebase={uploadImageToFirebase}
+      uploadVideoToFirebase={uploadVideoToFirebase}
+      confirmDialog={confirmDialog}
+      setCurrentPage={setCurrentPage}
+      updatePageSEO={updatePageSEO}
+      setSelectedCategory={setSelectedCategory}
+      setSelectedProduct={setSelectedProduct}
+    />;
   }
 
   // Handle filter changes
