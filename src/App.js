@@ -2236,19 +2236,34 @@ const Navigation = () => (
   );
 
   // Inventory Filters Component (memoized to prevent re-renders)
-  const InventoryFilters = memo(({ filters, onFilterChange }) => (
-    <div className="p-6 border-b border-gray-200">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
-        {/* Search */}
-        <div className="lg:col-span-2">
-          <input
-            type="text"
-            placeholder="Search items..."
-            value={filters.search}
-            onChange={(e) => onFilterChange('search', e.target.value)}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-          />
-        </div>
+  const InventoryFilters = memo(({ filters, onFilterChange }) => {
+    const searchInputRef = React.useRef(null);
+
+    // Sync the input value without causing re-render
+    React.useEffect(() => {
+      if (searchInputRef.current && searchInputRef.current.value !== filters.search) {
+        searchInputRef.current.value = filters.search;
+      }
+    }, [filters.search]);
+
+    const handleSearchChange = (e) => {
+      onFilterChange('search', e.target.value);
+    };
+
+    return (
+      <div className="p-6 border-b border-gray-200">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
+          {/* Search */}
+          <div className="lg:col-span-2">
+            <input
+              ref={searchInputRef}
+              type="text"
+              placeholder="Search items..."
+              defaultValue={filters.search}
+              onChange={handleSearchChange}
+              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
 
         {/* Brand Filter */}
         <div>
@@ -2321,7 +2336,8 @@ const Navigation = () => (
         </div>
       </div>
     </div>
-  ));
+    );
+  });
 
   // Admin Dashboard
   const AdminDashboard = memo(() => (
