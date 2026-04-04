@@ -1376,7 +1376,7 @@ const updatePageSEO = useCallback((page, category = null) => {
       break;
     case 'contact':
       title = "Contact Appliance House - Visit Our Nicholasville KY Showroom";
-      description = "Visit our appliance showroom in Nicholasville, KY. Call (859) 402-6888 or email for discount appliance deals. Serving Lexington and surrounding areas.";
+      description = "Visit our appliance showroom in Nicholasville, KY. Call (859) 217-3800 or email for discount appliance deals. Serving Lexington and surrounding areas.";
       break;
     default:
       title = baseTitle + " | Save up to 60%";
@@ -2424,10 +2424,10 @@ const Navigation = () => (
                 {/* Contact Buttons */}
                 <div className="space-y-4">
                   <a 
-  href="tel:+18594026888"
+  href="tel:+18592173800"
   className="block w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-base sm:text-lg font-semibold transition-colors text-center"
 >
-  Call for More Info: (859) 402-6888
+  Call for More Info: (859) 217-3800
 </a>
                   <button 
                     onClick={() => window.open(`mailto:appliancehouseky@gmail.com?subject=Inquiry about ${product.brand} ${product.modelNumber}&body=Hi, I'm interested in learning more about the ${product.brand} ${product.modelNumber} listed for ${product.actualPrice}.`, '_blank')}
@@ -2888,7 +2888,7 @@ const Navigation = () => (
                         <Phone className="h-6 w-6 text-white" />
                       </div>
                       <h4 className="text-lg font-semibold text-gray-900 mb-2">Call Us</h4>
-                      <p className="text-gray-600">(859) 402-6888</p>
+                      <p className="text-gray-600">(859) 217-3800</p>
                     </div>
                     
                     <div className="bg-gradient-to-br from-green-50 to-blue-50 p-6 rounded-2xl">
@@ -2959,7 +2959,7 @@ const Navigation = () => (
                   <div className="space-y-2 text-gray-400 text-sm">
                     <div className="flex items-center">
                       <Phone className="h-4 w-4 mr-2" />
-                      <span>(859) 402-6888</span>
+                      <span>(859) 217-3800</span>
                     </div>
                     <div className="flex items-center">
                       <Mail className="h-4 w-4 mr-2" />
@@ -3261,7 +3261,7 @@ const Navigation = () => (
                   <div className="space-y-2 text-gray-400 text-sm">
                     <div className="flex items-center">
                       <Phone className="h-4 w-4 mr-2" />
-                      <span>(859) 402-6888</span>
+                      <span>(859) 217-3800</span>
                     </div>
                     <div className="flex items-center">
                       <Mail className="h-4 w-4 mr-2" />
@@ -3319,7 +3319,7 @@ const Navigation = () => (
                         <Phone className="h-6 w-6 text-white" />
                       </div>
                       <h4 className="text-lg font-semibold text-gray-900 mb-2">Call Us</h4>
-                      <p className="text-gray-600">(859) 402-6888</p>
+                      <p className="text-gray-600">(859) 217-3800</p>
                     </div>
                     
                     <div className="bg-gradient-to-br from-green-50 to-blue-50 p-6 rounded-2xl">
@@ -3387,7 +3387,7 @@ const Navigation = () => (
                   <div className="space-y-2 text-gray-400 text-sm">
                     <div className="flex items-center">
                       <Phone className="h-4 w-4 mr-2" />
-                      <span>(859) 402-6888</span>
+                      <span>(859) 217-3800</span>
                     </div>
                     <div className="flex items-center">
                       <Mail className="h-4 w-4 mr-2" />
@@ -3528,7 +3528,7 @@ const Navigation = () => (
                   <div className="space-y-2 text-gray-400 text-sm">
                     <div className="flex items-center">
                       <Phone className="h-4 w-4 mr-2" />
-                      <span>(859) 402-6888</span>
+                      <span>(859) 217-3800</span>
                     </div>
                     <div className="flex items-center">
                       <Mail className="h-4 w-4 mr-2" />

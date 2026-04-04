@@ -2,7 +2,7 @@
 export const config = {
   // Site information
   siteName: process.env.REACT_APP_SITE_NAME || 'Appliance House',
-  phoneNumber: process.env.REACT_APP_PHONE_NUMBER || '(859) 402-6888',
+  phoneNumber: process.env.REACT_APP_PHONE_NUMBER || '(859) 217-3800',
   email: process.env.REACT_APP_EMAIL || 'appliancehouseky@gmail.com',
   address: process.env.REACT_APP_ADDRESS || '5000 Park Central Ave, Suite F, Nicholasville, KY 40356',
   
