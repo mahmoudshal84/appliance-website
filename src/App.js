@@ -2437,7 +2437,7 @@ const Navigation = () => (
                   </button>
                   <div className="text-center text-gray-600">
                     <p className="mb-2">Visit our showroom to see this item in person!</p>
-                    <p className="text-sm">305 E High St, Lexington, KY 40507</p>
+                    <p className="text-sm">5000 Park Central Ave, Suite F, Nicholasville, KY</p>
                   </div>
                 </div>
               </div>
@@ -2906,8 +2906,8 @@ const Navigation = () => (
                     </div>
                     <h4 className="text-lg font-semibold text-gray-900 mb-2">Visit Our Showroom</h4>
                     <p className="text-gray-600 mb-4">
-                      305 E High St<br />
-                      Lexington, KY 40507<br />
+                      5000 Park Central Ave, Suite F<br />
+                      Nicholasville, KY 40356<br />
                       Follow GPS to the back <br />
                     
                       Look for the baby blue sign!
@@ -2927,7 +2927,7 @@ const Navigation = () => (
 
                 <div className="bg-gray-100 rounded-2xl overflow-hidden">
                   <iframe
-                    src="https://maps.google.com/maps?q=305+E+High+St,Lexington,KY+40507&output=embed"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093743!2d-84.57322!3d37.88063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8842f0f0f0f0f0f0%3A0x0!2s5000%20Park%20Central%20Ave%2C%20Nicholasville%2C%20KY%2040356!5e0!3m2!1sen!2sus!4v1234567890123"
                     width="100%"
                     height="400"
                     style={{ border: 0 }}
@@ -2968,7 +2968,7 @@ const Navigation = () => (
                     </div>
                     <div className="flex items-center">
                       <MapPin className="h-4 w-4 mr-2" />
-                      <span>305 E High St</span>
+                      <span>5000 Park Central Ave, Suite F</span>
                     </div>
                   </div>
                 </div>
@@ -3271,7 +3271,7 @@ const Navigation = () => (
                     </div>
                     <div className="flex items-center">
                       <MapPin className="h-4 w-4 mr-2" />
-                      <span>305 E High St</span>
+                      <span>5000 Park Central Ave, Suite F</span>
                     </div>
                   </div>
                 </div>
@@ -3340,8 +3340,8 @@ const Navigation = () => (
                     </div>
                     <h4 className="text-lg font-semibold text-gray-900 mb-2">Visit Our Showroom</h4>
                     <p className="text-gray-600 mb-4">
-                      305 E High St<br />
-                      Lexington, KY 40507
+                      5000 Park Central Ave, Suite F<br />
+                      Nicholasville, KY 40356
                     </p>
                     <div>
                       <h4 className="text-lg font-semibold text-gray-900 mb-1">Store Hours</h4>
@@ -3358,7 +3358,7 @@ const Navigation = () => (
                 {/* Google Map Embed */}
                 <div className="bg-gray-100 rounded-2xl overflow-hidden">
                   <iframe
-                    src="https://maps.google.com/maps?q=305+E+High+St,Lexington,KY+40507&output=embed"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093743!2d-84.57322!3d37.88063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8842f0f0f0f0f0f0%3A0x0!2s5000%20Park%20Central%20Ave%2C%20Nicholasville%2C%20KY%2040356!5e0!3m2!1sen!2sus!4v1234567890123"
                     width="100%"
                     height="400"
                     style={{ border: 0 }}
@@ -3399,7 +3399,7 @@ const Navigation = () => (
                     </div>
                     <div className="flex items-center">
                       <MapPin className="h-4 w-4 mr-2" />
-                      <span>305 E High St</span>
+                      <span>5000 Park Central Ave, Suite F</span>
                     </div>
                   </div>
                 </div>
@@ -3541,7 +3541,7 @@ const Navigation = () => (
                     </div>
                     <div className="flex items-center">
                       <MapPin className="h-4 w-4 mr-2" />
-                      <span>305 E High St</span>
+                      <span>5000 Park Central Ave, Suite F</span>
                     </div>
                   </div>
                 </div>
