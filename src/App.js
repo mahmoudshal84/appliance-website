@@ -2916,14 +2916,15 @@ const Navigation = () => (
                     <div>
                       <h4 className="text-lg font-semibold text-gray-900 mb-1">Store Hours</h4>
                       <div className="text-gray-600 text-sm">
-                        <p>Monday - Friday: 10:00 AM - 5:00 PM</p>
+                        <p>Monday - Thursday: 10:00 AM - 6:00 PM</p>
+                        <p>Friday: 10:00 AM - 1:30 PM</p>
                         <p>Saturday: 12:00 PM - 5:00 PM</p>
                         <p>Sunday: 12:00 PM - 5:00 PM</p>
                       </div>
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="bg-gray-100 rounded-2xl overflow-hidden">
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093743!2d-84.57322!3d37.88063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8842f0f0f0f0f0f0%3A0x0!2s5000%20Park%20Central%20Ave%2C%20Nicholasville%2C%20KY%2040356!5e0!3m2!1sen!2sus!4v1234567890123"
@@ -2975,7 +2976,8 @@ const Navigation = () => (
                 <div>
                   <h4 className="text-lg font-semibold mb-4">Hours</h4>
                   <div className="space-y-2 text-gray-400 text-sm">
-                    <div>Mon-Fri: 10:00 AM - 5:00 PM</div>
+                    <div>Mon-Thu: 10:00 AM - 6:00 PM</div>
+                    <div>Friday: 10:00 AM - 1:30 PM</div>
                     <div>Saturday: 12:00 PM - 5:00 PM</div>
                     <div>Sunday: 12:00 PM - 5:00 PM</div>
                   </div>
@@ -3277,7 +3279,8 @@ const Navigation = () => (
                 <div>
                   <h4 className="text-lg font-semibold mb-4">Hours</h4>
                   <div className="space-y-2 text-gray-400 text-sm">
-                    <div>Mon-Fri: 10:00 AM - 5:00 PM</div>
+                    <div>Mon-Thu: 10:00 AM - 6:00 PM</div>
+                    <div>Friday: 10:00 AM - 1:30 PM</div>
                     <div>Saturday: 12:00 PM - 5:00 PM</div>
                     <div>Sunday: 12:00 PM - 5:00 PM</div>
                   </div>
@@ -3343,14 +3346,15 @@ const Navigation = () => (
                     <div>
                       <h4 className="text-lg font-semibold text-gray-900 mb-1">Store Hours</h4>
                       <div className="text-gray-600 text-sm">
-                        <p>Monday - Friday: 10:00 AM - 5:00 PM</p>
+                        <p>Monday - Thursday: 10:00 AM - 6:00 PM</p>
+                        <p>Friday: 10:00 AM - 1:30 PM</p>
                         <p>Saturday: 12:00 PM - 5:00 PM</p>
                         <p>Sunday: 12:00 PM - 5:00 PM</p>
                       </div>
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Google Map Embed */}
                 <div className="bg-gray-100 rounded-2xl overflow-hidden">
                   <iframe
@@ -3403,7 +3407,8 @@ const Navigation = () => (
                 <div>
                   <h4 className="text-lg font-semibold mb-4">Hours</h4>
                   <div className="space-y-2 text-gray-400 text-sm">
-                    <div>Mon-Fri: 10:00 AM - 5:00 PM</div>
+                    <div>Mon-Thu: 10:00 AM - 6:00 PM</div>
+                    <div>Friday: 10:00 AM - 1:30 PM</div>
                     <div>Saturday: 12:00 PM - 5:00 PM</div>
                     <div>Sunday: 12:00 PM - 5:00 PM</div>
                   </div>
@@ -3544,7 +3549,8 @@ const Navigation = () => (
                 <div>
                   <h4 className="text-lg font-semibold mb-4">Hours</h4>
                   <div className="space-y-2 text-gray-400 text-sm">
-                    <div>Mon-Fri: 10:00 AM - 5:00 PM</div>
+                    <div>Mon-Thu: 10:00 AM - 6:00 PM</div>
+                    <div>Friday: 10:00 AM - 1:30 PM</div>
                     <div>Saturday: 12:00 PM - 5:00 PM</div>
                     <div>Sunday: 12:00 PM - 5:00 PM</div>
                   </div>

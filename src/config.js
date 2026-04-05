@@ -8,7 +8,8 @@ export const config = {
   
   // Business hours
   businessHours: {
-    weekdays: 'Monday - Friday: 10:00 AM - 5:00 PM',
+    weekdays: 'Monday - Thursday: 10:00 AM - 6:00 PM',
+    friday: 'Friday: 10:00 AM - 1:30 PM',
     saturday: 'Saturday: 12:00 PM - 5:00 PM',
     sunday: 'Sunday: 12:00 PM - 5:00 PM'
   },
